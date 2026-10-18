@@ -370,3 +370,22 @@
     scroll-behavior: auto !important;
   }
 }
+
+
+
+
+
+.fish-pond-scene.pond-paused *,
+.fish-pond-scene.pond-paused *::before,
+.fish-pond-scene.pond-paused *::after {
+  animation-play-state: paused !important;
+}
+
+.fish-pond-scene .water-rays {
+  transform: translate(
+    var(--water-shift-x, 0px),
+    var(--water-shift-y, 0px)
+  );
+  transition: transform .25s ease-out;
+}
+
