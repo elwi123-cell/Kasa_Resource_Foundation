@@ -1102,5 +1102,122 @@
   <script>
     src="index.js" defer><
   </script>
+<script>
+(() => {
+  function initialiseFishPond() {
+    const scene = document.getElementById("fishPondScene");
+    if (!scene || scene.dataset.animationReady === "true") return;
+
+    const bubblesContainer = scene.querySelector("#waterBubbles");
+    const particlesContainer = scene.querySelector("#waterParticles");
+
+    if (!bubblesContainer || !particlesContainer) return;
+
+    scene.dataset.animationReady = "true";
+
+    const reducedMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)"
+    ).matches;
+
+    // Build the underwater bubbles and floating particles.
+    function createFloatingElement(container, className, index, total) {
+      const element = document.createElement("span");
+      element.className = className;
+
+      const x = Math.random() * 94 + 3;
+      const delay = -(Math.random() * 12);
+      const duration = className === "water-bubble"
+        ? 6 + Math.random() * 7
+        : 5 + Math.random() * 9;
+
+      element.style.setProperty("--x", `${x}%`);
+      element.style.setProperty("--delay", `${delay}s`);
+      element.style.setProperty("--duration", `${duration}s`);
+      element.style.setProperty(
+        "--drift",
+        `${Math.round(Math.random() * 65 - 32)}px`
+      );
+
+      if (className === "water-bubble") {
+        const size = 5 + Math.random() * 13;
+        element.style.setProperty("--size", `${size}px`);
+      } else {
+        const size = 1 + Math.random() * 3;
+        element.style.width = `${size}px`;
+        element.style.height = `${size}px`;
+      }
+
+      container.appendChild(element);
+      return element;
+    }
+
+    for (let i = 0; i < 19; i++) {
+      createFloatingElement(
+        bubblesContainer, "water-bubble", i, 19
+      );
+    }
+
+    for (let i = 0; i < 38; i++) {
+      createFloatingElement(
+        particlesContainer, "water-particle", i, 38
+      );
+    }
+
+    // Add subtle mouse/touch-responsive water movement.
+    // The fish remains animated even when no one interacts.
+    if (!reducedMotion) {
+      let moveFrame = null;
+
+      scene.addEventListener("pointermove", event => {
+        if (event.pointerType === "touch") return;
+
+        if (moveFrame) cancelAnimationFrame(moveFrame);
+
+        moveFrame = requestAnimationFrame(() => {
+          const rect = scene.getBoundingClientRect();
+          const x = (event.clientX - rect.left) / rect.width - 0.5;
+          const y = (event.clientY - rect.top) / rect.height - 0.5;
+
+          scene.style.setProperty(
+            "--water-shift-x",
+            `${x * 8}px`
+          );
+          scene.style.setProperty(
+            "--water-shift-y",
+            `${y * 6}px`
+          );
+        });
+      });
+
+      scene.addEventListener("pointerleave", () => {
+        scene.style.setProperty("--water-shift-x", "0px");
+        scene.style.setProperty("--water-shift-y", "0px");
+      });
+    }
+
+    // Pause expensive animations while the scene is off-screen.
+    if ("IntersectionObserver" in window) {
+      const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+          scene.classList.toggle(
+            "pond-paused",
+            !entry.isIntersecting
+          );
+        });
+      }, { threshold: 0.05 });
+
+      observer.observe(scene);
+    }
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener(
+      "DOMContentLoaded", initialiseFishPond, { once: true }
+    );
+  } else {
+    initialiseFishPond();
+  }
+})();
+      </script>
 </body>
 </html>
