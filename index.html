@@ -862,10 +862,163 @@
             <li>Responsible harvest &amp; cold-chain handling</li>
           </ul>
         </div>
-        <div class="detail-visual fishery">
-          🐟
-          <span>Aquaculture</span>
-        </div>
+        
+<div class="detail-visual fishery fish-pond-scene" id="fishPondScene">
+  <!-- Underwater light -->
+  <div class="water-rays"></div>
+  <div class="water-glow"></div>
+
+  <!-- Pond plants -->
+  <div class="pond-plant plant-left">
+    <i></i><i></i><i></i><i></i>
+  </div>
+  <div class="pond-plant plant-right">
+    <i></i><i></i><i></i><i></i>
+  </div>
+
+  <!-- Swimming fish -->
+  <div class="fish-swimmer" id="mainFish">
+    <svg class="animated-fish" viewBox="0 0 320 180"
+         xmlns="http://www.w3.org/2000/svg" role="img"
+         aria-label="Animated fish swimming underwater">
+      <defs>
+        <linearGradient id="fishBodyGradient" x1="0" y1="0" x2="0.2" y2="1">
+          <stop offset="0%" stop-color="#ffe7a0"/>
+          <stop offset="36%" stop-color="#f6a63c"/>
+          <stop offset="75%" stop-color="#e66b22"/>
+          <stop offset="100%" stop-color="#a83b17"/>
+        </linearGradient>
+        <linearGradient id="fishFinGradient" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stop-color="#ffdb75"/>
+          <stop offset="100%" stop-color="#d94b20"/>
+        </linearGradient>
+        <linearGradient id="fishBelly" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#fff3ce"/>
+          <stop offset="100%" stop-color="#f5c78a"/>
+        </linearGradient>
+        <radialGradient id="fishShine">
+          <stop offset="0%" stop-color="#ffffff" stop-opacity=".8"/>
+          <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+        </radialGradient>
+        <filter id="fishShadow">
+          <feGaussianBlur stdDeviation="4"/>
+        </filter>
+      </defs>
+
+      <!-- Soft shadow -->
+      <ellipse cx="155" cy="137" rx="94" ry="12"
+               fill="#001b31" opacity=".28" filter="url(#fishShadow)"/>
+
+      <!-- Tail: animated separately -->
+      <g class="fish-tail">
+        <path d="M70 83 Q36 40 10 50 Q23 83 9 115 Q43 123 70 98 Z"
+              fill="url(#fishFinGradient)" stroke="#a83b17" stroke-width="2"/>
+        <path d="M64 88 L21 57 M61 94 L20 111 M53 86 L35 71"
+              fill="none" stroke="#ffe5a2" stroke-width="2" opacity=".65"/>
+      </g>
+
+      <!-- Upper fin -->
+      <path d="M91 62 Q124 20 166 43 Q147 51 133 69 Z"
+            fill="url(#fishFinGradient)" stroke="#b94c1d" stroke-width="2"/>
+      <path d="M109 57 L137 38 M123 61 L151 44"
+            stroke="#ffe5a2" stroke-width="2" opacity=".7"/>
+
+      <!-- Lower fin -->
+      <path d="M101 108 Q125 143 158 120 L134 106 Z"
+            fill="url(#fishFinGradient)" stroke="#b94c1d" stroke-width="2"/>
+
+      <!-- Body -->
+      <path d="M56 89
+               C61 54 100 39 151 45
+               C205 46 246 66 269 84
+               Q285 91 268 101
+               C232 124 191 134 144 126
+               C95 123 63 112 56 89 Z"
+            fill="url(#fishBodyGradient)" stroke="#a74319" stroke-width="2.5"/>
+
+      <!-- Belly -->
+      <path d="M72 102 Q122 126 178 116 Q208 112 230 98
+               Q187 137 131 124 Q91 121 72 102 Z"
+            fill="url(#fishBelly)" opacity=".94"/>
+
+      <!-- Scales -->
+      <g fill="none" stroke="#ffe9b2" stroke-width="1.7" opacity=".58">
+        <path d="M94 63 q12 10 0 20 M112 58 q12 10 0 20 M130 55 q12 10 0 20"/>
+        <path d="M151 55 q12 10 0 20 M172 59 q12 10 0 20 M193 65 q12 10 0 20"/>
+        <path d="M89 84 q12 10 0 20 M109 80 q12 10 0 20 M129 78 q12 10 0 20"/>
+        <path d="M149 77 q12 10 0 20 M169 79 q12 10 0 20 M189 81 q12 10 0 20"/>
+        <path d="M111 102 q12 10 0 16 M132 99 q12 10 0 16 M153 99 q12 10 0 16"/>
+        <path d="M174 99 q12 10 0 16 M195 97 q12 10 0 16"/>
+      </g>
+
+      <!-- Side fin: animated -->
+      <g class="fish-side-fin">
+        <path d="M142 91 Q168 77 185 95 Q169 117 146 110 Z"
+              fill="url(#fishFinGradient)" stroke="#a74319" stroke-width="1.7"/>
+        <path d="M151 98 L176 94 M153 104 L171 98"
+              fill="none" stroke="#ffe9b2" stroke-width="1.5"/>
+      </g>
+
+      <!-- Head highlight -->
+      <ellipse cx="231" cy="68" rx="30" ry="13"
+               fill="url(#fishShine)" transform="rotate(10 231 68)"/>
+
+      <!-- Eye -->
+      <circle cx="240" cy="77" r="9" fill="#fff9e8"/>
+      <circle cx="243" cy="78" r="5.5" fill="#132d40"/>
+      <circle cx="245" cy="76" r="2" fill="#ffffff"/>
+
+      <!-- Mouth -->
+      <path d="M270 86 Q280 91 270 96"
+            fill="none" stroke="#81351d" stroke-width="2.5" stroke-linecap="round"/>
+
+      <!-- Gill -->
+      <path d="M219 78 Q207 92 220 106"
+            fill="none" stroke="#a74319" stroke-width="2.5"/>
+      <path d="M225 82 Q218 94 226 102"
+            fill="none" stroke="#ffd17b" stroke-width="1.5"/>
+
+      <!-- Glistening water highlights -->
+      <path d="M92 69 Q133 48 177 62"
+            fill="none" stroke="#fff8d9" stroke-width="3"
+            opacity=".65" stroke-linecap="round"/>
+    </svg>
+  </div>
+
+  <!-- Smaller fish in the distance -->
+  <div class="distant-fish distant-fish-one"> 
+    <svg viewBox="0 0 120 60" aria-hidden="true">
+      <path d="M25 30 Q48 7 82 29 Q48 51 25 30Z" fill="#bce8ec"/>
+      <path d="M28 30 L8 15 L11 44Z" fill="#86ceda"/>
+      <circle cx="76" cy="27" r="2.5" fill="#173e58"/>
+    </svg>
+  </div>
+
+  <div class="distant-fish distant-fish-two">
+    <svg viewBox="0 0 120 60" aria-hidden="true">
+      <path d="M25 30 Q48 7 82 29 Q48 51 25 30Z" fill="#8bd2cf"/>
+      <path d="M28 30 L8 15 L11 44Z" fill="#5bb5b5"/>
+      <circle cx="76" cy="27" r="2.5" fill="#173e58"/>
+    </svg>
+  </div>
+
+  <!-- Bubbles and particles are generated by JavaScript -->
+  <div class="water-particles" id="waterParticles"></div>
+  <div class="water-bubbles" id="waterBubbles"></div>
+
+  <!-- Water surface -->
+  <div class="pond-surface">
+    <div class="surface-ripple"></div>
+    <div class="surface-ripple ripple-two"></div>
+  </div>
+
+  <div class="aquaculture-label">
+    <span class="label-dot"></span>
+    <span>AQUACULTURE</span>
+    <small>Healthy waters. Sustainable growth.</small>
+  </div>
+</div>
+
       </div>
     </div>
   </section>
